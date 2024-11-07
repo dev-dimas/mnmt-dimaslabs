@@ -1,12 +1,13 @@
-import Image from 'next/image';
 import mintmateLogo from '@/assets/mintmate.png';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import Auth from './auth';
 
 export default function Navbar() {
   return (
     <nav className="flex justify-center items-center">
-      <div className="flex justify-between items-center container w-full max-lg:max-w-[90%] max-w-[75%] py-4">
+      <div className="flex justify-between items-center w-full max-w-[90%] lg:w-[90%] lg:max-w-7xl py-4">
         <div className="flex items-center gap-6">
           <Link href="/">
             <Image src={mintmateLogo} alt="Mintmate Logo" className="h-10 w-auto" placeholder="blur" />
@@ -17,9 +18,7 @@ export default function Navbar() {
         </div>
         <div className="flex gap-5">
           <Button className="text-blue-500 hover:bg-blue-100 bg-blue-100 font-semibold rounded-full shadow-none">Mint</Button>
-          <Button className="text-black hover:bg-zinc-200 bg-zinc-200 font-semibold rounded-full shadow-none" variant="secondary">
-            Connect
-          </Button>
+          <Auth />
         </div>
       </div>
     </nav>
