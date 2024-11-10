@@ -11,17 +11,23 @@ export default function Auth() {
   const { isLoading } = useAutoConnect({ client });
   const wallet = useActiveWallet();
 
-  const activeAccount = wallet?.getAccount();
+  const walletId = wallet?.id;
+  const activeAccountAddress = wallet?.getAccount()?.address;
 
-  if (isLoading && !activeAccount) {
+  if (isLoading && !activeAccountAddress) {
     return (
-      <Button className="text-black hover:bg-zinc-200 bg-zinc-200 font-semibold rounded-full shadow-none min-w-[90px]" variant="secondary">
+      <Button
+        className="text-black hover:bg-zinc-200 bg-zinc-200 disabled:opacity-100 font-semibold rounded-full shadow-none min-w-[90px]"
+        variant="secondary"
+        disabled
+      >
         <LoaderCircle className="animate-spin" />
       </Button>
     );
   }
 
-  if (!isLoading && activeAccount) return <ProfileButton walletId={wallet?.id} {...{ activeAccount }} />;
+  if (!isLoading && activeAccountAddress)
+    return <ProfileButton {...{ activeAccountAddress, walletId }} />;
 
-  return <ConnectWalletButton />;
+  return <ConnectWalletButton isDismissable />;
 }

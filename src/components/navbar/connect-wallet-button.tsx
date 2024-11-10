@@ -8,22 +8,51 @@ import { Button } from '../ui/button';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { useState } from 'react';
 
-const wallets = [createWallet('io.metamask'), createWallet('com.coinbase.wallet'), createWallet('me.rainbow'), createWallet('walletConnect')];
+const wallets = [
+  createWallet('io.metamask'),
+  createWallet('com.coinbase.wallet'),
+  createWallet('me.rainbow'),
+  createWallet('walletConnect'),
+];
 const customTheme = lightTheme({ colors: { borderColor: 'transparent' } });
 
-export default function ConnectWalletButton() {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+type Props = {
+  title?: string;
+  isDismissable?: boolean;
+  hideClose?: boolean;
+  hideTriggerButton?: boolean;
+};
+export default function ConnectWalletButton({
+  title = 'Connect wallet',
+  isDismissable = false,
+  hideClose = false,
+  hideTriggerButton = false,
+}: Props) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(hideTriggerButton);
 
   return (
-    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogTrigger asChild>
-        <Button className="text-black hover:bg-zinc-200 bg-zinc-200 font-semibold rounded-full shadow-none" variant="secondary">
-          Connect
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="px-0 sm:max-w-[425px]" aria-describedby="Connect wallet">
+    <Dialog open={isModalOpen} onOpenChange={setIsModalOpen} modal={true}>
+      {!hideTriggerButton && (
+        <DialogTrigger asChild>
+          <Button
+            className="text-black hover:bg-zinc-200 bg-zinc-200 font-semibold rounded-full shadow-none"
+            variant="secondary"
+          >
+            Connect
+          </Button>
+        </DialogTrigger>
+      )}
+      <DialogContent
+        className="px-0 sm:max-w-[425px]"
+        aria-describedby="Connect wallet"
+        onInteractOutside={(e) => {
+          e.preventDefault();
+          if (isDismissable) setIsModalOpen(false);
+        }}
+        hideClose={hideClose}
+      >
         <DialogHeader>
-          <DialogTitle className="font-bold text-center">Connect wallet</DialogTitle>
+          <DialogTitle className="font-bold text-center">{title}</DialogTitle>
         </DialogHeader>
         <ConnectEmbed
           client={client}
