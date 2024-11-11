@@ -1,17 +1,17 @@
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import { useMintStepStatus } from '@/store/useMintStepStatus';
 import { ReactNode } from 'react';
 
-type Props = {
-  stepStatus: 'Upload' | 'Mint' | 'Done';
-};
-export default function MintSteps({ stepStatus }: Props) {
+export default function MintSteps() {
+  const { stepStatus } = useMintStepStatus();
+
   const isMintStepActive: boolean = stepStatus === 'Mint' || stepStatus === 'Done';
   const isDoneStepActive: boolean = stepStatus === 'Done';
 
   return (
-    <div className="flex justify-center items-center w-full max-w-[50%] lg:w-[60%] lg:max-w-4xl">
+    <div className="flex justify-center items-center w-full max-w-[90%] sm:max-w-xl">
       <Step key="Upload" isStepActive>
         Upload
       </Step>
@@ -37,11 +37,10 @@ function Step({ isStepActive = false, children }: StepProps) {
   return (
     <Button
       className={cn(
-        'rounded-full disabled:opacity-100 font-semibold shadow-none',
-        isStepActive
-          ? 'bg-gradient-to-b from-fuchsia-600 to-rose-400'
-          : 'text-zinc-400 hover:bg-zinc-200 bg-zinc-200',
+        'rounded-full disabled:opacity-100 font-semibold shadow-none text-zinc-400 hover:bg-zinc-200 bg-zinc-200 transition-none',
+        isStepActive && 'bg-gradient-to-b from-fuchsia-600 to-rose-400 text-white',
       )}
+      variant="ghost"
       disabled
     >
       {children}

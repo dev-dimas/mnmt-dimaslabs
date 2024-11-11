@@ -3,13 +3,12 @@
 import { Button } from '@/components/ui/button';
 import { FileInput, FileUploader, FileUploaderContent } from '@/components/ui/file-upload';
 import useUrlFilePreview from '@/hooks/useUrlFilePreview';
+import { useMintStepStatus } from '@/store/useMintStepStatus';
 import { CloudUpload, FolderOpen } from 'lucide-react';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
-type Props = {
-  setStepStatus: Dispatch<SetStateAction<'Upload' | 'Mint' | 'Done'>>;
-};
-export default function NFTUploader({ setStepStatus }: Props) {
+export default function NFTUploader() {
+  const { setStepStatus } = useMintStepStatus();
   const [files, setFiles] = useState<File[] | null>(null);
 
   const dropZoneConfig = {

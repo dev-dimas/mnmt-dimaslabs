@@ -1,14 +1,21 @@
-import type { Metadata } from 'next';
-import { Manrope } from 'next/font/google';
-import './globals.css';
 import Navbar from '@/components/navbar';
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { ThirdwebProvider } from 'thirdweb/react';
+import './globals.css';
 import rootMetadata from './metadata';
 
-const manrope = Manrope({
-  subsets: ['latin'],
+// const manrope = Manrope({
+//   subsets: ['latin'],
+//   variable: '--font-manrope',
+//   display: 'swap',
+// });
+
+const manrope = localFont({
+  src: '../assets/manrope.ttf',
   variable: '--font-manrope',
-  display: 'swap',
+  preload: true,
 });
 
 export const metadata: Metadata = rootMetadata;
@@ -20,10 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="min-h-full h-full min-w-full w-full">
-      <body className={`${manrope.variable} font-manrope antialiased h-full w-full flex flex-col`}>
+      <body
+        className={`${manrope.variable} font-manrope antialiased h-full w-full flex flex-col bg-background text-foreground`}
+      >
         <ThirdwebProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
+          <NuqsAdapter>
+            <Navbar />
+            <main className="flex-1">{children}</main>
+          </NuqsAdapter>
         </ThirdwebProvider>
       </body>
     </html>

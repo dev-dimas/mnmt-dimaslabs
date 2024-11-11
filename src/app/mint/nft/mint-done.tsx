@@ -1,13 +1,12 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { useMintStepStatus } from '@/store/useMintStepStatus';
 import { RotateCw } from 'lucide-react';
-import { Dispatch, SetStateAction } from 'react';
 
-type Props = {
-  setStepStatus: Dispatch<SetStateAction<'Upload' | 'Mint' | 'Done'>>;
-};
-export default function MintDone({ setStepStatus }: Props) {
+export default function MintDone() {
+  const { setStepStatus } = useMintStepStatus();
+
   return (
     <div className="w-full flex flex-col justify-center items-center gap-1">
       <h1 className="text-xl font-extrabold">Congratulation!</h1>
