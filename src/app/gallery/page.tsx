@@ -34,9 +34,13 @@ export default async function Page() {
     <div className="flex flex-col items-center mx-auto min-h-full mt-14 w-full max-w-[90%] lg:w-[90%] lg:max-w-7xl py-4 gap-3">
       <div className="flex flex-col sm:flex-row mb-5 w-full sm:justify-between items-center">
         <h1 className="font-bold text-2xl">Gallery</h1>
-        <SearchBox />
+        <Suspense>
+          <SearchBox />
+        </Suspense>
       </div>
-      <SearchNotFound />
+      <Suspense>
+        <SearchNotFound />
+      </Suspense>
       <div
         className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         id="nft-list"
