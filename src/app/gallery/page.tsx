@@ -13,6 +13,8 @@ import { NFTCardSkeleton } from './nft-card';
 import SearchBox, { SearchNotFound } from './search-box';
 import { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'MintMate - Gallery',
   description:
