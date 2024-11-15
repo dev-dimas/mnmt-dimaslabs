@@ -11,8 +11,5 @@ export default function useUrlFilePreview(file: File) {
     }
   }, [file]);
 
-  const isImage = file.type.startsWith('image/');
-  const isVideo = file.type.startsWith('video/');
-
-  return { previewUrl, isImage, isVideo };
+  return { previewUrl };
 }

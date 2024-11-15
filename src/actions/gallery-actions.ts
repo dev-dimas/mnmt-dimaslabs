@@ -1,15 +1,8 @@
 'use server';
 
-import { client } from '@/app/client';
+import { contract } from '@/app/contract';
 import { ipfsToHttp } from '@/lib/utils';
-import { getContract, readContract } from 'thirdweb';
-import { sepolia } from 'thirdweb/chains';
-
-const contract = getContract({
-  client: { ...client, secretKey: process.env.THIRDWEB_SECRET_KEY },
-  chain: sepolia,
-  address: '0xA895a9b5882DBa287CF359b6a722C5be46aCb675',
-});
+import { readContract } from 'thirdweb';
 
 export async function getTokenIdCounter() {
   return await readContract({ contract, method: 'function _tokenIdCounter() returns (uint256)' });
@@ -19,13 +12,12 @@ export async function getTokenURI(tokenId: number) {
   return await readContract({
     contract,
     method: 'function tokenURI(uint256 tokenId) returns (string)',
-    params: [BigInt(tokenId)], // Passing tokenId sebagai argumen
+    params: [BigInt(tokenId)],
   });
 }
 
 export async function getGalleryNFTs() {
   const tokenIdCounter = await getTokenIdCounter();
-  console.log('TokenIdCounter', tokenIdCounter);
   if (!tokenIdCounter) return;
 
   const nftMetadata = [];

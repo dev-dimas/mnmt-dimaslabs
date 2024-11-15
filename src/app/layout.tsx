@@ -5,12 +5,7 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { ThirdwebProvider } from 'thirdweb/react';
 import './globals.css';
 import rootMetadata from './metadata';
-
-// const manrope = Manrope({
-//   subsets: ['latin'],
-//   variable: '--font-manrope',
-//   display: 'swap',
-// });
+import { Toaster } from '@/components/ui/sonner';
 
 const manrope = localFont({
   src: '../assets/manrope.ttf',
@@ -34,6 +29,7 @@ export default function RootLayout({
           <NuqsAdapter>
             <Navbar />
             <main className="flex-1">{children}</main>
+            <Toaster position="top-center" theme="light" richColors />
           </NuqsAdapter>
         </ThirdwebProvider>
       </body>

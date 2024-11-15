@@ -6,18 +6,26 @@ import { useMintStepStatus } from '@/store/useMintStepStatus';
 import { LoaderCircle } from 'lucide-react';
 import { useEffect } from 'react';
 import { useActiveWallet, useAutoConnect } from 'thirdweb/react';
-import MintDone from './mint-done';
-import MintNft from './mint-nft';
+import MintDone from './(done)/mint-done';
+import MintNft from './(mint)/mint-nft';
 import MintSteps from './mint-step';
-import NFTUploader from './nft-uploader';
+import NFTUploader from './(upload)/nft-uploader';
+import usePreviousFileURI from '@/hooks/usePreviousFileURI';
 
 export default function Page() {
   const { isLoading } = useAutoConnect({ client });
   const wallet = useActiveWallet();
   const { stepStatus, setStepStatus } = useMintStepStatus();
+  const { getPreviousFileURI } = usePreviousFileURI();
 
   useEffect(() => {
-    setStepStatus(localStorage.getItem('unfinished_ipfs_url') ? 'Mint' : 'Upload');
+    const previousFileURI = getPreviousFileURI();
+
+    if (previousFileURI) {
+      setStepStatus('Mint');
+    } else {
+      setStepStatus('Upload');
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

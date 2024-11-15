@@ -1,5 +1,5 @@
 import { getNFTOwner, getTokenURI } from '@/actions/gallery-actions';
-import { ipfsToHttp, parseToNumber } from '@/lib/utils';
+import { ipfsToHttp, isValidUrl, parseToNumber } from '@/lib/utils';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -66,6 +66,11 @@ export default async function Page({ params }: Props) {
       <div className="w-full sm:w-1/3 sm:px-10 flex flex-col justify-center gap-2">
         <h1 className="font-bold text-4xl">{nft.name}</h1>
         <p className="text-lg">{nft.description}</p>
+        {isValidUrl(nft.external_url) && (
+          <a className="text-sm underline text-blue-500" href={nft.external_url}>
+            {nft.external_url}
+          </a>
+        )}
         <div className="text-sm mt-8">
           <p className="font-semibold">Owner Address :</p>
           <p className="break-words">{owner}</p>

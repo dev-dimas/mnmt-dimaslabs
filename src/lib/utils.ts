@@ -13,3 +13,11 @@ export function parseToNumber(value: string) {
   const parsed = Number(value);
   return isNaN(parsed) ? null : parsed;
 }
+
+export function isValidUrl(url: string) {
+  const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+
+  if (!urlPattern.test(url)) return false;
+
+  return true;
+}

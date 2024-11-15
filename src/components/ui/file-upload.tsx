@@ -71,9 +71,9 @@ export const FileUploader = forwardRef<
     },
     ref,
   ) => {
-    const [isFileTooBig, setIsFileTooBig] = useState(false);
-    const [isLOF, setIsLOF] = useState(false);
-    const [activeIndex, setActiveIndex] = useState(-1);
+    const [isFileTooBig, setIsFileTooBig] = useState<boolean>(false);
+    const [isLOF, setIsLOF] = useState<boolean>(false);
+    const [activeIndex, setActiveIndex] = useState<number>(-1);
     const {
       accept = {
         'image/*': ['.jpg', '.jpeg', '.png', '.gif'],
@@ -298,15 +298,17 @@ export const FileUploaderItem = forwardRef<
 
 FileUploaderItem.displayName = 'FileUploaderItem';
 
-export const FileInput = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, children, ...props }, ref) => {
-    const { dropzoneState, isFileTooBig } = useFileUpload();
-    const rootProps = dropzoneState.getRootProps();
-    return (
-      <div ref={ref} {...props} className="relative w-full h-full cursor-pointer">
-        <div
-          className={cn(
-            `w-full rounded-lg duration-300 ease-in-out
+export const FileInput = forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement> & { disabled: boolean }
+>(({ className, children, ...props }, ref) => {
+  const { dropzoneState, isFileTooBig } = useFileUpload();
+  const rootProps = dropzoneState.getRootProps();
+  return (
+    <div ref={ref} {...props} className="relative w-full h-full cursor-pointer">
+      <div
+        className={cn(
+          `w-full rounded-lg duration-300 ease-in-out
          ${
            dropzoneState.isDragAccept
              ? 'border-green-500'
@@ -314,16 +316,19 @@ export const FileInput = forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDiv
              ? 'border-red-500'
              : 'border-gray-300'
          }`,
-            className,
-          )}
-          {...rootProps}
-        >
-          {children}
-        </div>
-        <Input ref={dropzoneState.inputRef} disabled={false} {...dropzoneState.getInputProps()} />
+          className,
+        )}
+        {...rootProps}
+      >
+        {children}
       </div>
-    );
-  },
-);
+      <Input
+        ref={dropzoneState.inputRef}
+        disabled={props.disabled}
+        {...dropzoneState.getInputProps()}
+      />
+    </div>
+  );
+});
 
 FileInput.displayName = 'FileInput';

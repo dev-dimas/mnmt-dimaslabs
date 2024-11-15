@@ -20,7 +20,7 @@ export default function SearchBox() {
 
 export function SearchNotFound() {
   const [search] = useQueryState('search', { clearOnDefault: true });
-  const [isNotFound, setIsNotFound] = useState(false);
+  const [isNotFound, setIsNotFound] = useState<boolean>(false);
 
   useEffect(() => {
     if (!search) {
