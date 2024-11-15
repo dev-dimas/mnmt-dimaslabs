@@ -22,7 +22,7 @@ import { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { toast } from 'sonner';
 import { prepareContractCall } from 'thirdweb';
-import { useSendTransaction } from 'thirdweb/react';
+import { useActiveWallet, useSendTransaction } from 'thirdweb/react';
 import { MintFormSchema } from './form-schema';
 
 /**
@@ -45,6 +45,9 @@ export default function FormMintNFT({ form }: Props) {
   const { getPreviousFileURI } = usePreviousFileURI();
   const { mutateAsync: sendTx } = useSendTransaction();
   const { setMintedImageURL } = useMintedImageURL();
+  const wallet = useActiveWallet();
+
+  const userAddress = wallet?.getAccount()?.address;
 
   /**
    * onSubmit function handles form submission.
@@ -52,6 +55,11 @@ export default function FormMintNFT({ form }: Props) {
    */
   async function onSubmit(values: MintFormSchema) {
     try {
+      if (!userAddress) {
+        toast.error('You need to connect wallet before minting!');
+        return;
+      }
+
       const fileURI = getPreviousFileURI();
       if (!fileURI) {
         toast.error('You need to upload valid image before minting!');
@@ -67,7 +75,7 @@ export default function FormMintNFT({ form }: Props) {
       const transaction = prepareContractCall({
         contract,
         method: 'function mintNFT(address recipient, string tokenURI)',
-        params: [process.env.NEXT_PUBLIC_MY_WALLET_ADDRESS!, tokenURI],
+        params: [userAddress, tokenURI],
       });
       const transactionResult = await sendTx(transaction);
       const transactionHash = transactionResult.transactionHash;
