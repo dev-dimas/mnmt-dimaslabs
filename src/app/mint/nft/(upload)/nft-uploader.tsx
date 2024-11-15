@@ -1,3 +1,10 @@
+/**
+ * The NFTUploader component allows users to upload a file to IPFS
+ * and saves the upload result to local storage. It also handles
+ * the minting process by calling the mintNFT function when the
+ * user clicks the "Mint" button.
+ */
+
 'use client';
 
 import { uploadFileToIPFS } from '@/actions/mint-actions';
@@ -9,12 +16,17 @@ import { useMintStepStatus } from '@/store/useMintStepStatus';
 import { CloudUpload, FolderOpen, LoaderCircle } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-
 export default function NFTUploader() {
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const { setStepStatus } = useMintStepStatus();
   const [files, setFiles] = useState<File[] | null>(null);
 
+  /**
+   * The dropZoneConfig object contains configuration options for the
+   * FileUploader component. It specifies the accepted file types, the
+   * maximum number of files that can be uploaded, and the maximum file
+   * size.
+   */
   const dropZoneConfig = {
     accept: {
       'image/svg+xml': ['.svg'],
@@ -27,6 +39,12 @@ export default function NFTUploader() {
     multiple: false,
   };
 
+  /**
+   * The handleUpload function is called when the user clicks the "Mint"
+   * button. It uploads the selected file to IPFS and saves the result to
+   * local storage. If the upload is successful, it sets the step status to
+   * "Mint" and sets the selected file to null.
+   */
   const handleUpload = async (file: File) => {
     try {
       const formData = new FormData();
@@ -79,6 +97,10 @@ export default function NFTUploader() {
   );
 }
 
+/**
+ * The UploadInstructions component displays a message, prompting the user
+ * to upload a file.
+ */
 function UploadInstructions() {
   return (
     <>
@@ -92,6 +114,9 @@ function UploadInstructions() {
   );
 }
 
+/**
+ * The PreviewFile component displays a preview of the uploaded file.
+ */
 function PreviewFile({ file, isUploading }: { file: File; isUploading: boolean }) {
   const { previewUrl } = useUrlFilePreview(file);
 

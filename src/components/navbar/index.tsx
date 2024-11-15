@@ -1,3 +1,9 @@
+/**
+ * The navbar component.
+ *
+ * This component renders a navigation bar with a logo, a link to the
+ * gallery, a button to mint a new NFT, and an authentication component.
+ */
 import mintmateLogo from '@/assets/mintmate.png';
 import Image from 'next/image';
 import Link from 'next/link';

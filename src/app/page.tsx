@@ -10,6 +10,11 @@ import NFT8 from '@/assets/nft-8.jpg';
 import CarouselAutoscroll from '@/components/ui/carousel-autoscroll';
 import Link from 'next/link';
 
+/**
+ * Using static import for images (NFT1 - NFT8)
+ * This way images placholder are automatically generated
+ */
+
 export default function Home() {
   return (
     <div className="flex flex-col min-h-full">

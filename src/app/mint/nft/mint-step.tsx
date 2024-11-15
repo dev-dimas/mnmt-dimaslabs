@@ -1,3 +1,9 @@
+/**
+ * The MintSteps component displays a list of steps with a
+ * separator between each step. The steps are displayed as
+ * buttons with a rounded shape and a gradient effect when
+ * the step is active.
+ */
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -7,7 +13,14 @@ import { ReactNode } from 'react';
 export default function MintSteps() {
   const { stepStatus } = useMintStepStatus();
 
+  /**
+   * Boolean indicating if the Mint or Done step is active.
+   */
   const isMintStepActive: boolean = stepStatus === 'Mint' || stepStatus === 'Done';
+
+  /**
+   * Boolean indicating if the Done step is active.
+   */
   const isDoneStepActive: boolean = stepStatus === 'Done';
 
   return (
@@ -29,8 +42,18 @@ export default function MintSteps() {
   );
 }
 
+/**
+ * The Step component displays a single step with a
+ * separator before and after it.
+ */
 type StepProps = {
+  /**
+   * Boolean indicating if the step is active.
+   */
   isStepActive?: boolean;
+  /**
+   * The content of the step.
+   */
   children: ReactNode;
 };
 function Step({ isStepActive = false, children }: StepProps) {

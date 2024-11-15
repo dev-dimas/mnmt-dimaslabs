@@ -1,13 +1,31 @@
+/**
+ * This page is used to show the information of a specific NFT.
+ * It takes the token id as a parameter from the URL.
+ * It fetches the token URI from the contract and then fetches the NFT metadata from the URI.
+ * It renders the NFT image, name, description, and external URL if exists.
+ * It also renders the owner address of the NFT.
+ */
 import { getNFTOwner, getTokenURI } from '@/actions/gallery-actions';
 import { ipfsToHttp, isValidUrl, parseToNumber } from '@/lib/utils';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
+/**
+ * The props for the page component.
+ * It contains the token id as a string.
+ */
 type Props = {
   params: { tokenId: string };
 };
 
+/**
+ * The function to generate the metadata for the page.
+ * It takes the props and returns the metadata.
+ * If the token id is not a number, it returns a 404 page.
+ * It fetches the token URI from the contract, and then fetches the NFT metadata from the URI.
+ * It returns the title, description, and other metadata based on the NFT metadata.
+ */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   let tokenId = parseToNumber(params.tokenId);
 
@@ -32,6 +50,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/**
+ * The page component.
+ * It takes the props and renders the NFT information.
+ * If the token id is not a number, it renders a 404 page.
+ * It fetches the token URI from the contract, and then fetches the NFT metadata from the URI.
+ * It renders the NFT image, name, description, and external URL if exists.
+ * It also renders the owner address of the NFT.
+ */
 export default async function Page({ params }: Props) {
   let tokenId = parseToNumber(params.tokenId);
 

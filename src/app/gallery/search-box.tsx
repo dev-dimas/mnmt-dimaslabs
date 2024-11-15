@@ -4,6 +4,10 @@ import { Input } from '@/components/ui/input';
 import { useQueryState } from 'nuqs';
 import { useEffect, useState } from 'react';
 
+/**
+ * SearchBox component allows users to input search text
+ * for filtering NFTs.
+ */
 export default function SearchBox() {
   const [search, setSearch] = useQueryState('search', { clearOnDefault: true });
 
@@ -18,6 +22,10 @@ export default function SearchBox() {
   );
 }
 
+/**
+ * SearchNotFound component displays a message when no NFTs
+ * match the search query.
+ */
 export function SearchNotFound() {
   const [search] = useQueryState('search', { clearOnDefault: true });
   const [isNotFound, setIsNotFound] = useState<boolean>(false);
@@ -28,6 +36,7 @@ export function SearchNotFound() {
       return;
     }
 
+    // Check if all items in the NFT list are hidden
     const children = document.querySelectorAll('#nft-list .hidden');
     const nftList = document.getElementById('nft-list');
     setIsNotFound(children.length === nftList?.children.length);

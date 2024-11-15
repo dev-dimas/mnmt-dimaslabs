@@ -1,3 +1,7 @@
+/**
+ * The MintDone component is the third step of the minting process.
+ * It displays the minted NFT and a button to mint again.
+ */
 'use client';
 
 import { Button } from '@/components/ui/button';
@@ -8,7 +12,15 @@ import { RotateCw } from 'lucide-react';
 import Image from 'next/image';
 
 export default function MintDone() {
-  const { mintedImageURL } = useMintedImageURL();
+  /**
+   * Gets the minted image URL from the MintedImageURL store.
+   * The mintedImageURL is the IPFS URL of the minted image.
+   */
+  const { mintedImageURL, setMintedImageURL } = useMintedImageURL();
+  /**
+   * Gets the setStepStatus function from the MintStepStatus store.
+   * The setStepStatus function is used to set the step status to "Upload".
+   */
   const { setStepStatus } = useMintStepStatus();
 
   return (
@@ -17,7 +29,6 @@ export default function MintDone() {
       <p className="text-sm text-zinc-400 font-semibold">
         You&apos;ve crystalized your art, it will be marked for so long time.
       </p>
-
       <div className="bg-zinc-200 shadow-xl rounded-xl w-full max-w-sm aspect-square overflow-hidden flex items-center justify-center mt-10 p-10">
         {mintedImageURL && (
           <Image
@@ -29,8 +40,13 @@ export default function MintDone() {
           />
         )}
       </div>
-
-      <Button className="rounded-full mt-10" onClick={() => setStepStatus('Upload')}>
+      <Button
+        className="rounded-full mt-10"
+        onClick={() => {
+          setStepStatus('Upload');
+          setMintedImageURL('');
+        }}
+      >
         <RotateCw />
         <span>Mint Again</span>
       </Button>

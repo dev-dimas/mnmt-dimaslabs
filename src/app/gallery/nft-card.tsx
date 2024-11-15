@@ -1,3 +1,10 @@
+/**
+ * A Next.js page that displays a single NFT card.
+ * The component renders a card with an image, name, and description.
+ * The image is loaded from IPFS using the `ipfsToHttp` utility function.
+ * The component uses the `useQueryState` hook from `nuqs` to get the search query.
+ * If the search query is not empty, the component will only render the NFT card if the NFT name matches the search query.
+ */
 'use client';
 
 import { Skeleton } from '@/components/ui/skeleton';
@@ -46,6 +53,11 @@ export default function NFTCard({ nft, tokenId }: Props) {
   );
 }
 
+/**
+ * A skeleton component that renders a loading state for the NFT card.
+ * The component renders a card with a skeleton image and two skeleton text elements.
+ * The component is used to render a loading state for the NFT card while it is loading.
+ */
 export function NFTCardSkeleton() {
   return (
     <div className="flex flex-col rounded-xl overflow-hidden bg-zinc-100 shadow-sm w-full max-w-[300px] gap-3 pb-3">

@@ -1,3 +1,15 @@
+/**
+ * A custom connect wallet button that allows users to connect their wallet
+ * using Thirdweb's ConnectEmbed component.
+ *
+ * @param {object} props - The props passed to the component.
+ * @param {string} [props.title=Connect wallet] - The title of the dialog.
+ * @param {boolean} [props.isDismissable=false] - If true, the dialog can be dismissed by clicking outside the dialog.
+ * @param {boolean} [props.hideClose=false] - If true, the close button will not be displayed.
+ * @param {boolean} [props.hideTriggerButton=false] - If true, the trigger button will not be displayed.
+ * @returns {JSX.Element} The custom connect wallet button.
+ */
+
 'use client';
 
 import { client } from '@/app/client';
@@ -22,6 +34,7 @@ type Props = {
   hideClose?: boolean;
   hideTriggerButton?: boolean;
 };
+
 export default function ConnectWalletButton({
   title = 'Connect wallet',
   isDismissable = false,

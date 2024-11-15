@@ -1,3 +1,11 @@
+/**
+ * A component that displays a profile image and address of the user.
+ * When the image is clicked, a modal will open with the user's wallet details.
+ * The image is a rounded rectangle with a white background and a black border.
+ * The address is displayed as a string of the form "0x... ABCD".
+ * The text is black and centered.
+ * The component is wrapped with a memo to prevent unnecessary re-renders.
+ */
 import { client } from '@/app/client';
 import Image from 'next/image';
 import { memo } from 'react';
@@ -15,6 +23,9 @@ function ProfileButton({ activeAccountAddress, walletId }: Props) {
   const { data: walletImage } = useWalletImage(walletId);
   const detailsModal = useWalletDetailsModal();
 
+  /**
+   * Handle the click event of the image.
+   */
   function handleClick() {
     detailsModal.open({ client, theme: 'light' });
   }

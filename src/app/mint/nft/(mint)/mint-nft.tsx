@@ -1,3 +1,9 @@
+/**
+ * The MintNft component is the second step of the minting process.
+ * It displays the uploaded image and the form to enter the NFT's name, description, and external URL.
+ * Name and description input are required, but external URL is optional.
+ */
+
 'use client';
 
 import usePreviousFileURI from '@/hooks/usePreviousFileURI';
@@ -14,6 +20,10 @@ import { mintFormSchema } from './form-schema';
 export default function MintNft() {
   const { getPreviousFileURI } = usePreviousFileURI();
   const form = useForm<z.infer<typeof mintFormSchema>>({
+    /**
+     * Resolver is used to validate the form data using zod.
+     * The default values are set to empty strings.
+     */
     resolver: zodResolver(mintFormSchema),
     defaultValues: {
       name: '',

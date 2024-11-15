@@ -25,6 +25,9 @@ import { prepareContractCall } from 'thirdweb';
 import { useSendTransaction } from 'thirdweb/react';
 import { MintFormSchema } from './form-schema';
 
+/**
+ * Props interface defining the structure of the form data.
+ */
 type Props = {
   form: UseFormReturn<{
     name: string;
@@ -33,12 +36,20 @@ type Props = {
   }>;
 };
 
+/**
+ * FormMintNFT component renders the form for minting NFTs.
+ * It handles the form submission and manages the minting process.
+ */
 export default function FormMintNFT({ form }: Props) {
   const { setStepStatus } = useMintStepStatus();
   const { getPreviousFileURI } = usePreviousFileURI();
   const { mutateAsync: sendTx } = useSendTransaction();
   const { setMintedImageURL } = useMintedImageURL();
 
+  /**
+   * onSubmit function handles form submission.
+   * It validates the form data and initiates the minting process.
+   */
   async function onSubmit(values: MintFormSchema) {
     try {
       const fileURI = getPreviousFileURI();
@@ -75,6 +86,7 @@ export default function FormMintNFT({ form }: Props) {
     }
   }
 
+  // Effect to set step status based on the previous file URI
   useEffect(() => {
     const fileURI = getPreviousFileURI();
     if (!fileURI) setStepStatus('Upload');
@@ -84,6 +96,7 @@ export default function FormMintNFT({ form }: Props) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 max-w-3xl mx-auto">
+        {/* Name field */}
         <FormField
           control={form.control}
           name="name"
@@ -96,12 +109,12 @@ export default function FormMintNFT({ form }: Props) {
               <FormControl>
                 <Input placeholder="e.g. Epic Ninja Fox" type="text" error={error} {...field} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
         />
 
+        {/* Description field */}
         <FormField
           control={form.control}
           name="description"
@@ -120,12 +133,12 @@ export default function FormMintNFT({ form }: Props) {
                   {...field}
                 />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
         />
 
+        {/* External URL field */}
         <FormField
           control={form.control}
           name="externalUrl"
@@ -136,11 +149,12 @@ export default function FormMintNFT({ form }: Props) {
               <FormControl>
                 <Input placeholder="e.g. https://external-url.com" type="url" {...field} />
               </FormControl>
-
               <FormMessage />
             </FormItem>
           )}
         />
+
+        {/* Information and submission button */}
         <div
           className={cn(
             'w-full flex gap-1 items-center text-blue-400',

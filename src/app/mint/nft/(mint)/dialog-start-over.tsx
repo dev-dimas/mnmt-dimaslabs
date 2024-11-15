@@ -15,11 +15,16 @@ import { cn } from '@/lib/utils';
 import { useMintStepStatus } from '@/store/useMintStepStatus';
 import { RotateCw } from 'lucide-react';
 
+/**
+ * DialogStartOver component renders a dialog to confirm starting over the minting process.
+ * It provides visual feedback and interaction elements to confirm or cancel the action.
+ */
 export default function DialogStartOver({ isFormSubmitting }: { isFormSubmitting: boolean }) {
   const { setStepStatus } = useMintStepStatus();
 
   return (
     <AlertDialog>
+      {/* Button to trigger the dialog, disabled when form is submitting */}
       <AlertDialogTrigger asChild disabled={isFormSubmitting}>
         <button
           className={cn(
@@ -27,6 +32,7 @@ export default function DialogStartOver({ isFormSubmitting }: { isFormSubmitting
             isFormSubmitting && 'hidden',
           )}
         >
+          {/* Icon with rotation animation */}
           <RotateCw
             color="white"
             size={40}
@@ -36,6 +42,8 @@ export default function DialogStartOver({ isFormSubmitting }: { isFormSubmitting
           <p className="text-white font-semibold">Start Over</p>
         </button>
       </AlertDialogTrigger>
+
+      {/* Dialog content to confirm the action */}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure to start over?</AlertDialogTitle>
