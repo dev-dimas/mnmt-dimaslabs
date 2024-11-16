@@ -10,6 +10,7 @@ import { ipfsToHttp, isValidUrl, parseToNumber } from '@/lib/utils';
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { unstable_noStore as noStore } from 'next/cache';
 
 /**
  * The props for the page component.
@@ -59,6 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
  * It also renders the owner address of the NFT.
  */
 export default async function Page({ params }: Props) {
+  noStore();
   let tokenId = parseToNumber(params.tokenId);
 
   if (!tokenId) notFound();

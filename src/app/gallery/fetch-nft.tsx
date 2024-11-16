@@ -3,6 +3,7 @@
  */
 
 import { getTokenURI } from '@/actions/gallery-actions';
+import { unstable_noStore as noStore } from 'next/cache';
 import { ipfsToHttp } from '@/lib/utils';
 import NFTCard from './nft-card';
 
@@ -10,6 +11,7 @@ export default async function FetchNFT({ tokenId }: { tokenId: number }) {
   /**
    * Fetch the NFT metadata URI from the contract.
    */
+  noStore();
   const tokenURI = await getTokenURI(tokenId);
 
   /**

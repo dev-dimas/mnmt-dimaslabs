@@ -12,8 +12,7 @@ import FetchNFT from './fetch-nft';
 import { NFTCardSkeleton } from './nft-card';
 import SearchBox, { SearchNotFound } from './search-box';
 import { Metadata } from 'next';
-
-export const dynamic = 'force-dynamic';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export const metadata: Metadata = {
   title: 'MintMate - Gallery',
@@ -22,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
+  noStore();
   const tokenIdCounter = await getTokenIdCounter();
 
   if (!tokenIdCounter) {
