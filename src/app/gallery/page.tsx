@@ -33,7 +33,7 @@ export default async function Page() {
   }
 
   return (
-    <div className="flex flex-col items-center mx-auto min-h-full mt-14 w-full max-w-[90%] lg:w-[90%] lg:max-w-7xl py-4 gap-3">
+    <div className="flex flex-col items-center mx-auto min-h-full max-xl:mt-4 mt-14 w-full max-w-[90%] lg:w-[90%] lg:max-w-7xl py-4 gap-3">
       <div className="flex flex-col sm:flex-row mb-5 w-full sm:justify-between items-center">
         <h1 className="font-bold text-2xl">Gallery</h1>
         <Suspense>
@@ -47,9 +47,10 @@ export default async function Page() {
         className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         id="nft-list"
       >
-        {Array.from({ length: Number(tokenIdCounter) }).map((_, id) => (
-          <Suspense key={id} fallback={<NFTCardSkeleton />}>
-            <FetchNFT tokenId={id} />
+        {Array.from({ length: Number(tokenIdCounter) }).map((_, id, tokenIds) => (
+          // Will sort the NFTs in latest to oldest
+          <Suspense key={tokenIds.length - 1 - id} fallback={<NFTCardSkeleton />}>
+            <FetchNFT tokenId={tokenIds.length - 1 - id} />
           </Suspense>
         ))}
       </div>
