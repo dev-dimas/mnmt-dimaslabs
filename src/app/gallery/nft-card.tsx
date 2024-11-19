@@ -60,7 +60,7 @@ export default function NFTCard({ nft, tokenId }: Props) {
  */
 export function NFTCardSkeleton() {
   return (
-    <div className="flex flex-col rounded-xl overflow-hidden bg-zinc-100 shadow-sm w-full max-w-[300px] gap-3 pb-3">
+    <div className="flex flex-col rounded-xl overflow-hidden bg-zinc-100 shadow-sm w-full gap-3 pb-3">
       <Skeleton className="w-full aspect-square bg-zinc-300 rounded-b-none" />
       <Skeleton className="bg-zinc-300 w-[30%] h-5 mx-3" />
       <Skeleton className="bg-zinc-300 w-[50%] h-5 mx-3" />
